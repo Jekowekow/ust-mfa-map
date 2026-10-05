@@ -63,6 +63,7 @@ h1{margin:0;font-size:clamp(2.3rem,5.6vw,4rem);line-height:1.02;font-weight:800;
 .sym-cog{border-radius:50%;border:3px solid var(--muted);background:var(--bg)}
 .sym-exam{width:11px;height:11px;margin:0 2px;background:var(--gold);border-radius:2px;transform:rotate(45deg)}
 .sym-thesis{border-radius:50%;background:var(--gold)}
+.sym-pub{border-radius:50%;border:2.5px dashed var(--gold);background:var(--bg)}
 button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 /* Map */
@@ -90,6 +91,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .stn:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
 .dot{position:absolute;left:-12px;top:12px;width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--bg);transform:translateX(-50%)}
 .dot.cog{background:var(--bg);border:3.5px solid var(--c)}
+.dot.pub{background:var(--bg);border:3px dashed var(--gold)}
 .dot.exam{width:17px;height:17px;border-radius:3px;transform:translateX(-50%) rotate(45deg)}
 .stn-code{display:block;font-size:.78rem;font-weight:800;letter-spacing:.02em;color:var(--muted);font-variant-numeric:tabular-nums}
 .stn-title{display:block;font-size:.97rem;line-height:1.3;font-weight:600}
@@ -120,6 +122,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 .foot{margin:40px 0 48px;padding:18px 0 0;border-top:1px solid var(--rule);color:var(--muted);font-size:.88rem}
 .foot p{margin:0 0 6px;max-width:80ch}
+.foot a{color:inherit;font-weight:700;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
 
 @media (max-width:980px){:root{--term-w:108px}}
 @media (max-width:759px){
@@ -143,13 +146,14 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
   <header class="hero">
     <p class="org">University of Santo Tomas Graduate School</p>
     <h1>MFA curriculum map</h1>
-    <p class="lede">Three specializations, term by term. Gold capsules hold courses that all three share. Select a course to see its prerequisites and what it unlocks. Solid outlines mark required links. Dashed outlines mark recommended links.</p>
+    <p class="lede">Three specializations, term by term. Gold capsules hold courses that all three share. Select a course to see its prerequisites and what it unlocks. Solid outlines mark required links. Dashed outlines mark soft links: recommended, or not yet confirmed.</p>
     <ul class="rules">
       <li><b>42 units over six terms</b>14 courses. Each course is 3 lecture hours per week.</li>
       <li><b>Most courses have no prerequisite</b>The curriculum lists "none" for all courses except the WCE and the thesis courses.</li>
       <li><b>WCE gate</b>Take the WCE after you complete at least 31 units.</li>
       <li><b>Thesis chain</b>Thesis Writing I needs the WCE. Thesis Writing II and III need Thesis Writing I. III has II as a co-requisite.</li>
       <li><b>Recommended: Research Methodology in the term before Thesis Writing I</b>It is recommended to take GS501 in the term right before Thesis Writing I. In the listed order, that is Year 2, Term 2. It is not a requirement, but it helps you start the thesis with momentum.</li>
+      <li><b>Journal publication (required)</b>Publish at least one article in a refereed or indexed journal before graduation. Timing is not confirmed. It may fall during Thesis Writing I. One option is The Antoninus Journal of the UST Graduate School.</li>
       <li><b>Cognate</b>Any course with substantial bearing on the thesis. You can choose a course outside the MFA, but it needs pre-approval.</li>
       <li><b>Course codes</b>FA600 to FA602 are core. FA61x is Painting and Sculpture, FA62x is Industrial Design, FA63x is Visual Communication.</li>
     </ul>
@@ -170,14 +174,16 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
       <button type="button" data-type="cog" aria-pressed="false"><span class="sym sym-cog" aria-hidden="true"></span>Cognate</button>
       <button type="button" data-type="exam" aria-pressed="false"><span class="sym sym-exam" aria-hidden="true"></span>WCE gate</button>
       <button type="button" data-type="thesis" aria-pressed="false"><span class="sym sym-thesis" aria-hidden="true"></span>Thesis</button>
+      <button type="button" data-type="pub" aria-pressed="false"><span class="sym sym-pub" aria-hidden="true"></span>Publication</button>
     </div>
   </div>
 
   <div class="map" id="map"></div>
 
   <footer class="foot">
-    <p>Source: UST Graduate School, Master of Fine Arts summary of curriculum (Painting and Sculpture, Visual Communication, Industrial Design), approved by Prof. Michael Anthony C. Vasco, PhD, Dean. Course titles appear as written in the source.</p>
-    <p>The map shows the listed order. Confirm term offerings with the Graduate School.</p>
+    <p>Source: UST Graduate School, Master of Fine Arts summary of curriculum (Painting and Sculpture, Visual Communication, Industrial Design). Course titles appear as written in the source.</p>
+    <p>The map shows the listed order. The publication requirement comes from CHED Memorandum Order No. 15, Series of 2019. Its timing and duration are not confirmed.</p>
+    <p>For official and current information, go to the UST Graduate School or visit <a href="https://graduateschool.ust.edu.ph/" target="_blank" rel="noopener">graduateschool.ust.edu.ph</a>.</p>
   </footer>
 </main>
 
@@ -193,7 +199,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     {id:'vc',name:'Visual Communication'},
     {id:'id',name:'Industrial Design'}
   ];
-  var KIND={prereq:'Prerequisite subject',core:'Core',spec:'Specialization',cog:'Cognate',exam:'WCE gate',thesis:'Thesis'};
+  var KIND={prereq:'Prerequisite subject',core:'Core',spec:'Specialization',cog:'Cognate',exam:'WCE gate',thesis:'Thesis',pub:'Publication'};
   var COURSES={
     GS500:{code:'GS500',title:'St. Thomas and Critical Thinking',kind:'prereq'},
     GS501:{code:'GS501',title:'Research Methodology',kind:'prereq',rec:['TW1'],badge:'Recommended: term before Thesis Writing I'},
@@ -219,14 +225,15 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     WCE:{code:'',title:'WCE',kind:'exam',preText:'At least 31 completed units'},
     TW1:{code:'',title:'Thesis Writing I',kind:'thesis',pre:['WCE']},
     TW2:{code:'',title:'Thesis Writing II',kind:'thesis',pre:['TW1']},
-    TW3:{code:'',title:'Thesis Writing III',kind:'thesis',pre:['TW1'],co:['TW2']}
+    TW3:{code:'',title:'Thesis Writing III',kind:'thesis',pre:['TW1'],co:['TW2']},
+    PUB:{code:'',title:'Journal publication',kind:'pub',near:['TW1'],badge:'Required. Timing unconfirmed'}
   };
   var TERMS=[
     {y:1,t:1,shared:['GS500','FA602'],lanes:{ps:['FA610'],vc:['FA630'],id:['FA620']}},
     {y:1,t:2,shared:['GS501','FA600'],lanes:{ps:['FA611'],vc:['FA631'],id:['FA621']}},
     {y:2,t:1,shared:['FA601'],lanes:{ps:['FA614',{c:'CHS105'}],vc:['FA632',{c:'FA624'}],id:['FA622',{c:'FA634'}]}},
     {y:2,t:2,shared:[],lanes:{ps:['FA613','FA612'],vc:['FA633','FA634'],id:['FA623','FA624']},junction:true},
-    {y:3,t:1,trunk:['TW1']},
+    {y:3,t:1,trunk:['TW1'],extra:['PUB']},
     {y:3,t:2,trunk:['TW2','TW3']}
   ];
   var TOTAL=42;
@@ -247,7 +254,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     var c=COURSES[code],tag='';
     if(role==='prereq'||role==='core'||role==='cog')tag=KIND[role];
     if(role==='exam')tag='After 31+ units';
-    var dotCls='dot'+(role==='cog'?' cog':'')+(role==='exam'?' exam':'');
+    var dotCls='dot'+(role==='cog'?' cog':'')+(role==='exam'?' exam':'')+(role==='pub'?' pub':'');
     return '<button type="button" class="stn" data-code="'+code+'" data-role="'+role+'" style="--c:'+color+'">'+
       (withDot?'<span class="'+dotCls+'" aria-hidden="true"></span>':'')+
       (c.code?'<span class="stn-code">'+c.code+'</span>':'')+
@@ -280,6 +287,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
           '<span class="rail'+(last?' end':'')+'" style="--i:'+trunk+';--c:var(--gold)" aria-hidden="true"></span>'+
           '<div class="cell" style="grid-column:'+(trunk+1)+' / -1">'+
           t.trunk.map(function(c){return stn(c,'thesis','var(--gold)',true);}).join('')+
+          (t.extra||[]).map(function(c){return stn(c,'pub','var(--gold)',true);}).join('')+
           '</div></div></section>';
       }else{
         var rails=tracks.map(function(tr,i){return '<span class="rail" style="--i:'+i+';--c:var(--'+tr.id+')" aria-hidden="true"></span>';}).join('');
@@ -331,9 +339,10 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     var c=COURSES[code];
     return [].concat(c.pre||[],c.co||[],unlocksOf(code),coOf(code));
   }
+  function nearOf(code){return keysWhere(function(c){return (c.near||[]).indexOf(code)>-1;});}
   function recommended(code){
     var c=COURSES[code];
-    return [].concat(c.rec||[],recFirstOf(code));
+    return [].concat(c.rec||[],recFirstOf(code),c.near||[],nearOf(code));
   }
 
   function applyFocus(){
@@ -387,15 +396,32 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     if(code==='GS501')arr.push('It is recommended to take Research Methodology in the term right before Thesis Writing I. In the listed order, that is Year 2, Term 2, not Year 1, Term 2. It is not a requirement, but it helps you start the thesis with momentum.');
     if(code==='TW1')arr.push('First thesis course. It opens only after the WCE.');
     if(code==='TW1')arr.push('It is recommended to take GS501 Research Methodology in the term right before this course. This is advice, not a curriculum rule.');
+    if(code==='TW1')arr.push('The journal publication requirement may fall in this term. The timing is not confirmed.');
     if(code==='TW3')arr.push('Take it in the same term as Thesis Writing II.');
     return arr;
   }
 
+  function showSheet(html){
+    sheetBody.innerHTML=html;
+    sheet.classList.add('open');
+    requestAnimationFrame(function(){document.body.style.paddingBottom=sheet.offsetHeight+'px';});
+  }
+  function pubSheet(){
+    return '<p class="sheet-code">Graduation requirement</p><h2>Journal publication</h2><dl>'+
+      '<dt>Requirement</dt><dd>At least one article in a refereed or indexed journal before graduation</dd>'+
+      '<dt>Basis</dt><dd>CHED Memorandum Order No. 15, Series of 2019</dd>'+
+      '<dt>Timing</dt><dd>Not confirmed. It may fall during '+recLink('TW1')+'.</dd>'+
+      '<dt>Duration</dt><dd>About 6 months, from a classmate. Not confirmed.</dd>'+
+      '<dt>Option</dt><dd>The Antoninus Journal, the peer-reviewed journal of the UST Graduate School. It publishes one issue per year.</dd>'+
+      '<dt>Units</dt><dd>Not a course. No units.</dd>'+
+      '</dl><div class="notes"><p>Confirm the timing and the accepted journals with the UST Graduate School.</p></div>';
+  }
   function openSheet(code){
+    if(code==='PUB'){showSheet(pubSheet());return;}
     var c=COURSES[code],pl=placements(code);
     var pre=c.pre?c.pre.map(link).join(', '):(c.preText||'None listed');
     var co=c.co?c.co.map(link).join(', '):'None listed';
-    var un=unlocksOf(code),cof=coOf(code),rf=recFirstOf(code),nt=notes(code,pl);
+    var un=unlocksOf(code),cof=coOf(code),rf=recFirstOf(code),nf=nearOf(code),nt=notes(code,pl);
     var html='<p class="sheet-code">'+(c.code||KIND[c.kind])+'</p>'+
       '<h2>'+c.title+'</h2><dl>'+
       '<dt>Where</dt><dd><ul class="where">'+pl.map(function(p){return '<li>'+p.who+': '+p.role+', '+p.when+'</li>';}).join('')+'</ul></dd>'+
@@ -406,6 +432,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
       (cof.length?'<dt>Co-requisite of</dt><dd>'+cof.map(link).join(', ')+'</dd>':'')+
       (c.rec?'<dt>Recommended term</dt><dd>The term right before '+c.rec.map(recLink).join(', ')+' (Year 2, Term 2 in the listed order)</dd>':'')+
       (rf.length?'<dt>Recommended prior term</dt><dd>'+rf.map(recLink).join(', ')+'</dd>':'')+
+      (nf.length?'<dt>May fall in this term</dt><dd>'+nf.map(recLink).join(', ')+'</dd>':'')+
       '</dl>'+
       (nt.length?'<div class="notes">'+nt.map(function(x){return '<p>'+x+'</p>';}).join('')+'</div>':'');
     sheetBody.innerHTML=html;
