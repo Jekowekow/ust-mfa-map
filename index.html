@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UST MFA curriculum map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#F3F5F8;--surface:#FFFFFF;--ink:#13233A;--muted:#566275;--rule:#D6DCE4;
+  --gold:#DFA000;--gold-ink:#7A5800;--gold-tint:#FFF2C9;
+  --ps:#C7354A;--vc:#2A6BD1;--id:#1E8656;
+  --shadow:0 -10px 34px rgba(19,35,58,.16);
+  --rail-x:22px;--rail-w:5px;--term-w:136px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1828;--surface:#152338;--ink:#ECF1F7;--muted:#9AA7B9;--rule:#26364E;
+    --gold:#F2B705;--gold-ink:#F7CC4A;--gold-tint:#3B3317;
+    --ps:#F25D6F;--vc:#5F9DFF;--id:#3EBE81;
+    --shadow:0 -10px 34px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1828;--surface:#152338;--ink:#ECF1F7;--muted:#9AA7B9;--rule:#26364E;
+  --gold:#F2B705;--gold-ink:#F7CC4A;--gold-tint:#3B3317;
+  --ps:#F25D6F;--vc:#5F9DFF;--id:#3EBE81;
+  --shadow:0 -10px 34px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Overpass","Segoe UI",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+img{max-width:100%}
+
+/* Header */
+.hero{padding:44px 0 4px}
+.org{margin:0 0 6px;color:var(--muted);font-weight:600;font-size:.95rem}
+h1{margin:0;font-size:clamp(2.3rem,5.6vw,4rem);line-height:1.02;font-weight:800;letter-spacing:-.025em}
+.lede{margin:14px 0 0;max-width:62ch;color:var(--muted);font-size:1.05rem}
+.rules{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px 32px}
+.rules li{padding-left:14px;border-left:4px solid var(--gold);line-height:1.45;max-width:46ch}
+.rules b{display:block;font-weight:800}
+
+/* Controls */
+.controls{margin:34px 0 0;display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center}
+.seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border:1.5px solid var(--rule);border-radius:12px;background:var(--surface)}
+.seg button{font:inherit;font-weight:700;font-size:.92rem;border:0;background:none;color:var(--ink);padding:8px 12px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sw{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.legend-label{color:var(--muted);font-size:.9rem;margin-right:4px}
+.legend button{font:inherit;font-size:.86rem;display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1.5px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer}
+.legend button[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-tint)}
+.sym{display:inline-block;flex:none;width:14px;height:14px}
+.sym-cap{width:20px;height:12px;border:2px solid var(--gold);border-radius:6px;background:var(--surface)}
+.sym-spec{border-radius:50%;background:conic-gradient(var(--ps) 0 33.3%,var(--vc) 0 66.6%,var(--id) 0)}
+.sym-cog{border-radius:50%;border:3px solid var(--muted);background:var(--bg)}
+.sym-exam{width:11px;height:11px;margin:0 2px;background:var(--gold);border-radius:2px;transform:rotate(45deg)}
+.sym-thesis{border-radius:50%;background:var(--gold)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* Map */
+.map{margin:22px 0 0;position:relative}
+.lane-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:grid;grid-template-columns:var(--term-w) 1fr;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.heads{display:grid;grid-template-columns:repeat(var(--n),1fr)}
+.head{position:relative;padding:14px 10px 12px calc(var(--rail-x) + 20px);font-weight:800;font-size:.98rem;line-height:1.2}
+.head::before{content:"";position:absolute;left:var(--rail-x);top:50%;width:16px;height:16px;border-radius:50%;background:var(--c);transform:translate(-50%,-50%)}
+.row{display:grid;grid-template-columns:var(--term-w) 1fr}
+.term{padding:16px 14px 20px 0;border-top:1px solid var(--rule)}
+.row:first-of-type .term{border-top:0}
+.term h3{margin:0;font-size:1.05rem;font-weight:800;line-height:1.15}
+.term h3 span{display:block;font-weight:600;color:var(--muted);font-size:.92rem;margin-top:2px}
+.units{margin:10px 0 0;font-size:.84rem;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.4}
+.meter{height:4px;border-radius:2px;background:var(--rule);margin-top:7px;max-width:96px;overflow:hidden}
+.meter span{display:block;height:100%;width:calc(var(--v) * 100%);background:var(--gold)}
+.lanes{position:relative;display:grid;grid-template-columns:repeat(var(--n),1fr);align-content:start;padding:14px 0 22px;background:linear-gradient(var(--rule),var(--rule)) top left/100% 1px no-repeat}
+.rail{position:absolute;top:0;bottom:0;left:calc(100% / var(--n) * var(--i) + var(--rail-x));width:var(--rail-w);margin-left:calc(var(--rail-w) / -2);background:var(--c);z-index:0}
+.row.is-last .rail{bottom:22px}
+.rail.end::after{content:"";position:absolute;bottom:0;left:50%;width:22px;height:5px;border-radius:3px;background:var(--c);transform:translateX(-50%)}
+.interchange{grid-column:1 / -1;position:relative;z-index:1;margin:0 10px 16px 6px;padding:8px 10px;border:2.5px solid var(--gold);border-radius:18px;background:var(--surface);display:flex;flex-wrap:wrap;gap:4px 20px}
+.cell{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;padding:0 10px 0 calc(var(--rail-x) + 22px)}
+.stn{position:relative;display:block;width:calc(100% + 10px);margin-left:-10px;padding:6px 10px;text-align:left;font:inherit;color:inherit;background:none;border:0;border-radius:10px;cursor:pointer;transition:opacity .15s ease,background-color .15s ease}
+.interchange .stn{flex:1 1 220px;width:auto;margin:0}
+.stn:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.dot{position:absolute;left:-12px;top:12px;width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--bg);transform:translateX(-50%)}
+.dot.cog{background:var(--bg);border:3.5px solid var(--c)}
+.dot.exam{width:17px;height:17px;border-radius:3px;transform:translateX(-50%) rotate(45deg)}
+.stn-code{display:block;font-size:.78rem;font-weight:800;letter-spacing:.02em;color:var(--muted);font-variant-numeric:tabular-nums}
+.stn-title{display:block;font-size:.97rem;line-height:1.3;font-weight:600}
+.stn-tag{display:inline-block;margin-top:5px;padding:0 7px;font-size:.75rem;line-height:1.6;color:var(--muted);border:1px solid var(--rule);border-radius:6px}
+.stn.is-selected{background:var(--gold-tint);box-shadow:inset 0 0 0 2px var(--gold)}
+.stn.is-linked{outline:2px solid var(--gold);outline-offset:-2px}
+.stn.is-rec{outline:2px dashed var(--gold);outline-offset:-2px}
+.stn-tag.rec{border-style:dashed;border-color:var(--gold);color:var(--gold-ink)}
+.stn-tag + .stn-tag{margin-left:6px}
+.linkbtn.rec{text-decoration-style:dashed}
+.map.has-focus .stn:not(.is-on){opacity:.3}
+.junction .lanes{padding-top:0}
+.merge{grid-column:1 / -1;display:block;width:100%;height:64px;overflow:visible}
+
+/* Detail sheet */
+.sheet{position:fixed;left:50%;bottom:0;z-index:20;width:min(600px,calc(100% - 20px));max-height:72vh;overflow:auto;padding:18px 20px calc(18px + env(safe-area-inset-bottom,0px));background:var(--surface);color:var(--ink);border:1.5px solid var(--rule);border-bottom:0;border-radius:18px 18px 0 0;box-shadow:var(--shadow);transform:translate(-50%,110%);visibility:hidden;transition:transform .22s ease,visibility 0s linear .22s}
+.sheet.open{transform:translate(-50%,0);visibility:visible;transition:transform .22s ease}
+.sheet-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--rule);background:var(--bg);color:var(--ink);font:inherit;font-size:1.25rem;line-height:1;cursor:pointer}
+.sheet-code{margin:0;font-weight:800;color:var(--muted);font-size:.85rem}
+.sheet h2{margin:2px 44px 14px 0;font-size:1.3rem;line-height:1.2;font-weight:800}
+.sheet dl{display:grid;grid-template-columns:max-content 1fr;gap:7px 18px;margin:0}
+.sheet dt{color:var(--muted);font-size:.9rem;padding-top:1px}
+.sheet dd{margin:0}
+.where{list-style:none;margin:0;padding:0}
+.linkbtn{font:inherit;font-weight:700;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:3px}
+.notes{margin-top:14px;padding-top:4px;border-top:1px solid var(--rule)}
+.notes p{margin:8px 0 0;color:var(--muted);font-size:.92rem}
+
+.foot{margin:40px 0 48px;padding:18px 0 0;border-top:1px solid var(--rule);color:var(--muted);font-size:.88rem}
+.foot p{margin:0 0 6px;max-width:80ch}
+
+@media (max-width:980px){:root{--term-w:108px}}
+@media (max-width:759px){
+  :root{--term-w:82px;--rail-x:18px}
+  .wrap{padding:0 14px}
+  .hero{padding-top:28px}
+  .seg-all{display:none !important}
+  .term{padding-right:10px}
+  .term h3{font-size:.95rem}
+  .units{font-size:.78rem}
+  .interchange{flex-direction:column}
+  .interchange .stn{flex:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .sheet,.sheet.open,.stn{transition:none}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <p class="org">University of Santo Tomas Graduate School</p>
+    <h1>MFA curriculum map</h1>
+    <p class="lede">Three specializations, term by term. Gold capsules hold courses that all three share. Select a course to see its prerequisites and what it unlocks. Solid outlines mark required links. Dashed outlines mark recommended links.</p>
+    <ul class="rules">
+      <li><b>42 units over six terms</b>14 courses. Each course is 3 lecture hours per week.</li>
+      <li><b>Most courses have no prerequisite</b>The curriculum lists "none" for all courses except the WCE and the thesis courses.</li>
+      <li><b>WCE gate</b>Take the WCE after you complete at least 31 units.</li>
+      <li><b>Thesis chain</b>Thesis Writing I needs the WCE. Thesis Writing II and III need Thesis Writing I. III has II as a co-requisite.</li>
+      <li><b>Recommended: Research Methodology in the term before Thesis Writing I</b>It is recommended to take GS501 in the term right before Thesis Writing I. In the listed order, that is Year 2, Term 2. It is not a requirement, but it helps you start the thesis with momentum.</li>
+      <li><b>Cognate</b>Any course with substantial bearing on the thesis. You can choose a course outside the MFA, but it needs pre-approval.</li>
+      <li><b>Course codes</b>FA600 to FA602 are core. FA61x is Painting and Sculpture, FA62x is Industrial Design, FA63x is Visual Communication.</li>
+    </ul>
+  </header>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Specializations shown">
+      <button type="button" class="seg-all" data-view="all" aria-pressed="true">All three</button>
+      <button type="button" data-view="ps" aria-pressed="false"><span class="sw" style="--c:var(--ps)" aria-hidden="true"></span>Painting and Sculpture</button>
+      <button type="button" data-view="vc" aria-pressed="false"><span class="sw" style="--c:var(--vc)" aria-hidden="true"></span>Visual Communication</button>
+      <button type="button" data-view="id" aria-pressed="false"><span class="sw" style="--c:var(--id)" aria-hidden="true"></span>Industrial Design</button>
+    </div>
+    <div class="legend" role="group" aria-label="Highlight a course type">
+      <span class="legend-label">Highlight</span>
+      <button type="button" data-type="prereq" aria-pressed="false"><span class="sym sym-cap" aria-hidden="true"></span>Prerequisite subject</button>
+      <button type="button" data-type="core" aria-pressed="false"><span class="sym sym-cap" aria-hidden="true"></span>Core</button>
+      <button type="button" data-type="spec" aria-pressed="false"><span class="sym sym-spec" aria-hidden="true"></span>Specialization</button>
+      <button type="button" data-type="cog" aria-pressed="false"><span class="sym sym-cog" aria-hidden="true"></span>Cognate</button>
+      <button type="button" data-type="exam" aria-pressed="false"><span class="sym sym-exam" aria-hidden="true"></span>WCE gate</button>
+      <button type="button" data-type="thesis" aria-pressed="false"><span class="sym sym-thesis" aria-hidden="true"></span>Thesis</button>
+    </div>
+  </div>
+
+  <div class="map" id="map"></div>
+
+  <footer class="foot">
+    <p>Source: UST Graduate School, Master of Fine Arts summary of curriculum (Painting and Sculpture, Visual Communication, Industrial Design), approved by Prof. Michael Anthony C. Vasco, PhD, Dean. Course titles appear as written in the source.</p>
+    <p>The map shows the listed order. Confirm term offerings with the Graduate School.</p>
+  </footer>
+</main>
+
+<aside class="sheet" id="sheet" role="region" aria-label="Course details" aria-live="polite">
+  <button type="button" class="sheet-close" id="sheet-close" aria-label="Close course details">&times;</button>
+  <div id="sheet-body"></div>
+</aside>
+
+<script>
+(function(){
+  var TRACKS=[
+    {id:'ps',name:'Painting and Sculpture'},
+    {id:'vc',name:'Visual Communication'},
+    {id:'id',name:'Industrial Design'}
+  ];
+  var KIND={prereq:'Prerequisite subject',core:'Core',spec:'Specialization',cog:'Cognate',exam:'WCE gate',thesis:'Thesis'};
+  var COURSES={
+    GS500:{code:'GS500',title:'St. Thomas and Critical Thinking',kind:'prereq'},
+    GS501:{code:'GS501',title:'Research Methodology',kind:'prereq',rec:['TW1'],badge:'Recommended: term before Thesis Writing I'},
+    FA600:{code:'FA600',title:'Advance Theories in Art and Design',kind:'core'},
+    FA601:{code:'FA601',title:'Issues and Perspectives in Art and Design',kind:'core'},
+    FA602:{code:'FA602',title:'Historiography of Philippine Art and Design',kind:'core'},
+    FA610:{code:'FA610',title:'Advanced Work in Visual Art Representation'},
+    FA611:{code:'FA611',title:'Advanced Work in Mural and Monumental Representation'},
+    FA612:{code:'FA612',title:'Advanced Work in Abstract Art and New Media'},
+    FA613:{code:'FA613',title:'Advanced Work in Multimedia Production'},
+    FA614:{code:'FA614',title:'Seminar Workshop in Non-Mainstream Materials'},
+    CHS105:{code:'CHS105',title:'Introduction to Conservation Theories and Practices'},
+    FA620:{code:'FA620',title:'Manufacturing Technology'},
+    FA621:{code:'FA621',title:'Applied Ergonomics and New Technologies'},
+    FA622:{code:'FA622',title:'Product Innovation, Development and Management'},
+    FA623:{code:'FA623',title:'Presentation Techniques for Designers'},
+    FA624:{code:'FA624',title:'Exhibition Design'},
+    FA630:{code:'FA630',title:'Creative Methodologies'},
+    FA631:{code:'FA631',title:'Transformation Design'},
+    FA632:{code:'FA632',title:'Advanced Visual Language and Cross-Disciplinary Strategies'},
+    FA633:{code:'FA633',title:'Advanced Multi-Media Studies'},
+    FA634:{code:'FA634',title:'Design Education, Theory and Practice'},
+    WCE:{code:'',title:'WCE',kind:'exam',preText:'At least 31 completed units'},
+    TW1:{code:'',title:'Thesis Writing I',kind:'thesis',pre:['WCE']},
+    TW2:{code:'',title:'Thesis Writing II',kind:'thesis',pre:['TW1']},
+    TW3:{code:'',title:'Thesis Writing III',kind:'thesis',pre:['TW1'],co:['TW2']}
+  };
+  var TERMS=[
+    {y:1,t:1,shared:['GS500','FA602'],lanes:{ps:['FA610'],vc:['FA630'],id:['FA620']}},
+    {y:1,t:2,shared:['GS501','FA600'],lanes:{ps:['FA611'],vc:['FA631'],id:['FA621']}},
+    {y:2,t:1,shared:['FA601'],lanes:{ps:['FA614',{c:'CHS105'}],vc:['FA632',{c:'FA624'}],id:['FA622',{c:'FA634'}]}},
+    {y:2,t:2,shared:[],lanes:{ps:['FA613','FA612'],vc:['FA633','FA634'],id:['FA623','FA624']},junction:true},
+    {y:3,t:1,trunk:['TW1']},
+    {y:3,t:2,trunk:['TW2','TW3']}
+  ];
+  var TOTAL=42;
+  var STORE='ust-mfa-map:view';
+  var mq=window.matchMedia('(max-width: 759px)');
+  var chosen='all';
+  try{var saved=localStorage.getItem(STORE);if(saved&&['all','ps','vc','id'].indexOf(saved)>-1)chosen=saved;}catch(e){}
+  var focus=null;
+  var map=document.getElementById('map');
+  var sheet=document.getElementById('sheet');
+  var sheetBody=document.getElementById('sheet-body');
+
+  function effectiveView(){return (mq.matches&&chosen==='all')?'vc':chosen;}
+  function laneItems(t,id){
+    return (t.lanes[id]||[]).map(function(it){return typeof it==='string'?{c:it,role:'spec'}:{c:it.c,role:'cog'};});
+  }
+  function stn(code,role,color,withDot){
+    var c=COURSES[code],tag='';
+    if(role==='prereq'||role==='core'||role==='cog')tag=KIND[role];
+    if(role==='exam')tag='After 31+ units';
+    var dotCls='dot'+(role==='cog'?' cog':'')+(role==='exam'?' exam':'');
+    return '<button type="button" class="stn" data-code="'+code+'" data-role="'+role+'" style="--c:'+color+'">'+
+      (withDot?'<span class="'+dotCls+'" aria-hidden="true"></span>':'')+
+      (c.code?'<span class="stn-code">'+c.code+'</span>':'')+
+      '<span class="stn-title">'+c.title+'</span>'+
+      (tag?'<span class="stn-tag">'+tag+'</span>':'')+
+      (c.badge?'<span class="stn-tag rec">'+c.badge+'</span>':'')+
+      '</button>';
+  }
+
+  function render(){
+    var view=effectiveView();
+    var tracks=view==='all'?TRACKS:TRACKS.filter(function(t){return t.id===view;});
+    var n=tracks.length,trunk=n===3?1:0;
+    var ids=tracks.map(function(t){return t.id;}).join(',');
+    var cum=0,out='';
+    out+='<div class="lane-head"><div></div><div class="heads" style="--n:'+n+'">'+
+      tracks.map(function(t){return '<div class="head" style="--c:var(--'+t.id+')">'+t.name+'</div>';}).join('')+
+      '</div></div>';
+    var lastIdx=TERMS.length-1;
+    TERMS.forEach(function(t,ti){
+      var count=t.trunk?t.trunk.length:(t.shared.length+laneItems(t,tracks[0].id).length);
+      var units=count*3;cum+=units;
+      var first=ti===0,last=ti===lastIdx;
+      var term='<div class="term"><h3>Year '+t.y+'<span>Term '+t.t+'</span></h3>'+
+        '<p class="units">'+units+' units<br>'+cum+' of '+TOTAL+' total</p>'+
+        '<div class="meter" style="--v:'+(cum/TOTAL).toFixed(3)+'" aria-hidden="true"><span></span></div></div>';
+      if(t.trunk){
+        out+='<section class="row'+(last?' is-last':'')+'" aria-label="Year '+t.y+', Term '+t.t+'">'+term+
+          '<div class="lanes" style="--n:'+n+'">'+
+          '<span class="rail'+(last?' end':'')+'" style="--i:'+trunk+';--c:var(--gold)" aria-hidden="true"></span>'+
+          '<div class="cell" style="grid-column:'+(trunk+1)+' / -1">'+
+          t.trunk.map(function(c){return stn(c,'thesis','var(--gold)',true);}).join('')+
+          '</div></div></section>';
+      }else{
+        var rails=tracks.map(function(tr,i){return '<span class="rail" style="--i:'+i+';--c:var(--'+tr.id+')" aria-hidden="true"></span>';}).join('');
+        var inter=t.shared.length?'<div class="interchange">'+t.shared.map(function(c){return stn(c,COURSES[c].kind,'var(--gold)',false);}).join('')+'</div>':'';
+        var cells=tracks.map(function(tr){
+          return '<div class="cell">'+laneItems(t,tr.id).map(function(it){return stn(it.c,it.role,'var(--'+tr.id+')',true);}).join('')+'</div>';
+        }).join('');
+        out+='<section class="row'+(first?' is-first':'')+'" aria-label="Year '+t.y+', Term '+t.t+'">'+term+
+          '<div class="lanes" style="--n:'+n+'">'+rails+inter+cells+'</div></section>';
+      }
+      if(t.junction){
+        out+='<section class="row junction" aria-label="WCE gate">'+
+          '<div class="term"><h3>Gate<span>Before Year 3</span></h3>'+
+          '<p class="units">Listed in Year 2, Term 2. '+cum+' units done after Year 2. The WCE needs 31.</p></div>'+
+          '<div class="lanes" style="--n:'+n+'" data-n="'+n+'" data-trunk="'+trunk+'" data-tracks="'+ids+'">'+
+          '<svg class="merge" aria-hidden="true"></svg>'+
+          '<span class="rail" style="--i:'+trunk+';--c:var(--gold);top:64px" aria-hidden="true"></span>'+
+          '<div class="cell" style="grid-column:'+(trunk+1)+' / -1">'+stn('WCE','exam','var(--gold)',true)+'</div>'+
+          '</div></section>';
+      }
+    });
+    map.innerHTML=out;
+    document.querySelectorAll('[data-view]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.view===view));});
+    drawMerge();
+    applyFocus();
+  }
+
+  function drawMerge(){
+    document.querySelectorAll('svg.merge').forEach(function(svg){
+      var lanes=svg.parentElement;
+      var W=lanes.clientWidth,n=+lanes.dataset.n,trunk=+lanes.dataset.trunk;
+      var cs=getComputedStyle(lanes);
+      var rx=parseFloat(cs.getPropertyValue('--rail-x'))||22;
+      var rw=parseFloat(cs.getPropertyValue('--rail-w'))||5;
+      var H=64,tx=W/n*trunk+rx;
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      svg.innerHTML=lanes.dataset.tracks.split(',').map(function(id,i){
+        var x=W/n*i+rx;
+        return '<path d="M'+x+' 0 C'+x+' '+(H*.55)+' '+tx+' '+(H*.45)+' '+tx+' '+H+'" fill="none" style="stroke:var(--'+id+');stroke-width:'+rw+'px"></path>';
+      }).join('');
+    });
+  }
+
+  function keysWhere(fn){return Object.keys(COURSES).filter(function(k){return fn(COURSES[k]);});}
+  function unlocksOf(code){return keysWhere(function(c){return (c.pre||[]).indexOf(code)>-1;});}
+  function coOf(code){return keysWhere(function(c){return (c.co||[]).indexOf(code)>-1;});}
+  function recFirstOf(code){return keysWhere(function(c){return (c.rec||[]).indexOf(code)>-1;});}
+  function related(code){
+    var c=COURSES[code];
+    return [].concat(c.pre||[],c.co||[],unlocksOf(code),coOf(code));
+  }
+  function recommended(code){
+    var c=COURSES[code];
+    return [].concat(c.rec||[],recFirstOf(code));
+  }
+
+  function applyFocus(){
+    var stns=map.querySelectorAll('.stn');
+    stns.forEach(function(s){s.classList.remove('is-on','is-selected','is-linked','is-rec');});
+    document.querySelectorAll('[data-type]').forEach(function(b){
+      b.setAttribute('aria-pressed',String(!!(focus&&focus.kind==='type'&&focus.type===b.dataset.type)));
+    });
+    if(!focus){map.classList.remove('has-focus');return;}
+    map.classList.add('has-focus');
+    if(focus.kind==='type'){
+      stns.forEach(function(s){if(s.dataset.role===focus.type)s.classList.add('is-on');});
+    }else{
+      var rel=related(focus.code),rec=recommended(focus.code);
+      stns.forEach(function(s){
+        var c=s.dataset.code;
+        if(c===focus.code){s.classList.add('is-on','is-selected');}
+        else if(rel.indexOf(c)>-1){s.classList.add('is-on','is-linked');}
+        else if(rec.indexOf(c)>-1){s.classList.add('is-on','is-rec');}
+      });
+    }
+  }
+
+  function placements(code){
+    var out=[];
+    TERMS.forEach(function(t){
+      var when='Year '+t.y+', Term '+t.t;
+      (t.shared||[]).concat(t.trunk||[]).forEach(function(c){
+        if(c===code)out.push({who:'All three specializations',role:KIND[COURSES[c].kind],when:when});
+      });
+      if(t.junction&&code==='WCE')out.push({who:'All three specializations',role:KIND.exam,when:when});
+      if(t.lanes)TRACKS.forEach(function(tr){
+        laneItems(t,tr.id).forEach(function(it){
+          if(it.c===code)out.push({who:tr.name,role:KIND[it.role],when:when});
+        });
+      });
+    });
+    return out;
+  }
+  function label(code){var c=COURSES[code];return c.code?c.code+' '+c.title:c.title;}
+  function link(code){return '<button type="button" class="linkbtn" data-goto="'+code+'">'+label(code)+'</button>';}
+  function recLink(code){return '<button type="button" class="linkbtn rec" data-goto="'+code+'">'+label(code)+'</button>';}
+
+  function notes(code,pl){
+    var c=COURSES[code],arr=[];
+    if(c.kind==='prereq')arr.push('Listed as a prerequisite subject of the program. It has no prerequisite of its own.');
+    if(c.kind==='core')arr.push('Core subject. All three specializations take it in the same term.');
+    if(!c.kind&&pl.length>1)arr.push('This course appears in two specializations with different roles.');
+    if(pl.some(function(p){return p.role==='Cognate';}))arr.push('The curriculum lists this course as the cognate. You can choose a different course with substantial bearing on the thesis. A course outside the MFA needs pre-approval.');
+    if(code==='WCE')arr.push('Curriculum note: take the WCE after you complete at least 31 units. At the listed pace, you have 33 units after Year 2.');
+    if(code==='GS501')arr.push('It is recommended to take Research Methodology in the term right before Thesis Writing I. In the listed order, that is Year 2, Term 2, not Year 1, Term 2. It is not a requirement, but it helps you start the thesis with momentum.');
+    if(code==='TW1')arr.push('First thesis course. It opens only after the WCE.');
+    if(code==='TW1')arr.push('It is recommended to take GS501 Research Methodology in the term right before this course. This is advice, not a curriculum rule.');
+    if(code==='TW3')arr.push('Take it in the same term as Thesis Writing II.');
+    return arr;
+  }
+
+  function openSheet(code){
+    var c=COURSES[code],pl=placements(code);
+    var pre=c.pre?c.pre.map(link).join(', '):(c.preText||'None listed');
+    var co=c.co?c.co.map(link).join(', '):'None listed';
+    var un=unlocksOf(code),cof=coOf(code),rf=recFirstOf(code),nt=notes(code,pl);
+    var html='<p class="sheet-code">'+(c.code||KIND[c.kind])+'</p>'+
+      '<h2>'+c.title+'</h2><dl>'+
+      '<dt>Where</dt><dd><ul class="where">'+pl.map(function(p){return '<li>'+p.who+': '+p.role+', '+p.when+'</li>';}).join('')+'</ul></dd>'+
+      '<dt>Hours</dt><dd>'+(code==='WCE'?'No hours listed':'3 lecture hours per week')+'</dd>'+
+      '<dt>Prerequisite</dt><dd>'+pre+'</dd>'+
+      '<dt>Co-requisite</dt><dd>'+co+'</dd>'+
+      (un.length?'<dt>Unlocks</dt><dd>'+un.map(link).join(', ')+'</dd>':'')+
+      (cof.length?'<dt>Co-requisite of</dt><dd>'+cof.map(link).join(', ')+'</dd>':'')+
+      (c.rec?'<dt>Recommended term</dt><dd>The term right before '+c.rec.map(recLink).join(', ')+' (Year 2, Term 2 in the listed order)</dd>':'')+
+      (rf.length?'<dt>Recommended prior term</dt><dd>'+rf.map(recLink).join(', ')+'</dd>':'')+
+      '</dl>'+
+      (nt.length?'<div class="notes">'+nt.map(function(x){return '<p>'+x+'</p>';}).join('')+'</div>':'');
+    sheetBody.innerHTML=html;
+    sheet.classList.add('open');
+    requestAnimationFrame(function(){document.body.style.paddingBottom=sheet.offsetHeight+'px';});
+  }
+  function closeSheet(clear){
+    sheet.classList.remove('open');
+    document.body.style.paddingBottom='';
+    if(clear){focus=null;applyFocus();}
+  }
+  function select(code,force){
+    if(!force&&focus&&focus.kind==='course'&&focus.code===code){closeSheet(true);return;}
+    focus={kind:'course',code:code};
+    applyFocus();
+    openSheet(code);
+  }
+
+  map.addEventListener('click',function(e){
+    var b=e.target.closest('.stn');
+    if(b)select(b.dataset.code,false);
+  });
+  sheet.addEventListener('click',function(e){
+    var g=e.target.closest('[data-goto]');
+    if(g)select(g.dataset.goto,true);
+  });
+  document.getElementById('sheet-close').addEventListener('click',function(){closeSheet(true);});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&(focus||sheet.classList.contains('open')))closeSheet(true);
+  });
+  document.querySelectorAll('[data-view]').forEach(function(b){
+    b.addEventListener('click',function(){
+      chosen=b.dataset.view;
+      try{localStorage.setItem(STORE,chosen);}catch(e){}
+      render();
+    });
+  });
+  document.querySelectorAll('[data-type]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var ty=b.dataset.type;
+      focus=(focus&&focus.kind==='type'&&focus.type===ty)?null:{kind:'type',type:ty};
+      closeSheet(false);
+      applyFocus();
+    });
+  });
+  if(mq.addEventListener)mq.addEventListener('change',render);else if(mq.addListener)mq.addListener(render);
+  if('ResizeObserver' in window)new ResizeObserver(drawMerge).observe(map);
+  else window.addEventListener('resize',drawMerge);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawMerge);
+
+  render();
+})();
+</script>
+</body>
+</html>
